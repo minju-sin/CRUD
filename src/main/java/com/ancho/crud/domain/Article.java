@@ -25,15 +25,8 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createBy"),
 })
-@EntityListeners(AuditingEntityListener.class)
-//  현재 JpaConfig에서는 Auditing 세팅이 되어있지만 추가적으로 하나 더작성해야하는데,
-//  바로 엔티티에서도 Auditing을 쓰겠다는 표시를 해줘야한다. domain/Article에서 아래의 내용을 작성해야한다.
-//@EntityListeners(AuditingEntityListener.class)
-//@EntityListeners - Entity를 DB에 적용하기 이전, 이후에 커스텀 콜백을 요청할 수 있는 어노테이션
-//AuditingEntityListener - Entity 영속성 및 업데이트에 대한 Auditing 정보를 캡처하는 JPA Entity Listener
-//이 문구는 당연히 ArticleComment 엔티티에도 작성되어있어야 한다. 그래야 Auditing을 쓸수 있기 때문이다.
 @Entity
-public class Article {
+public class Article extends AuditingFields{    //  상속을 통해 AuditingFields 가 Article에 포함됨 
     /* primary key */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,8 +54,6 @@ public class Article {
     @CreatedBy @Column(nullable = false, length = 100) private String createBy;    // 생성자
     @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;   // 수정일시
     @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy;  //  수정자
-
-
 
     /*
     * 모든 JPA 엔티티들은 hibernate 구현체를 사용하는 기준으로 설명하면, 기본 생성자를 가지고 있어야 한다.
