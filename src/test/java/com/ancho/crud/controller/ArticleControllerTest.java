@@ -43,7 +43,7 @@ class ArticleControllerTest {
         //  When & Then
         mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk()) //  정상 호출
-                .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))  //  데이터 확인
                 .andExpect(view().name("articles/detail"))   //  뷰 이름 검사
                 .andExpect(model().attributeExists("article"))    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
                 .andExpect(model().attributeExists("articleComments"));    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
@@ -58,7 +58,7 @@ class ArticleControllerTest {
         //  When & Then
         mvc.perform(get("/articles/search"))
                 .andExpect(status().isOk()) //  정상 호출
-                .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))  //  데이터 확인
                 .andExpect(view().name("articles/search"));  //  뷰 이름 검사
     }
 
@@ -71,7 +71,7 @@ class ArticleControllerTest {
         //  When & Then
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk()) //  정상 호출
-                .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))  //  데이터 확인
                 .andExpect(view().name("articles/search-hashtag"));   //  뷰 이름 검사
     }
 }
