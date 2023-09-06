@@ -34,7 +34,7 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles"));    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
     }
 
-    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
+//    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
     @DisplayName("[view][GET] 게시글 상세 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
