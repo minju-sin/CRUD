@@ -1,5 +1,6 @@
 package com.ancho.crud.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ class ArticleControllerTest {
         this.mvc = mvc;
     }
 
+    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
@@ -29,9 +31,11 @@ class ArticleControllerTest {
         mvc.perform(get("/articles"))
                 .andExpect(status().isOk()) //  정상 호출
                 .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
+                .andExpect(view().name("articles/index"))   //  뷰 이름 검사
                 .andExpect(model().attributeExists("articles"));    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
     }
 
+    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
     @DisplayName("[view][GET] 게시글 상세 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
@@ -41,9 +45,12 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk()) //  정상 호출
                 .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
-                .andExpect(model().attributeExists("article"));    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
+                .andExpect(view().name("articles/detail"))   //  뷰 이름 검사
+                .andExpect(model().attributeExists("article"))    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
+                .andExpect(model().attributeExists("articleComments"));    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
     }
 
+    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
     @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
@@ -52,9 +59,11 @@ class ArticleControllerTest {
         //  When & Then
         mvc.perform(get("/articles/search"))
                 .andExpect(status().isOk()) //  정상 호출
-                .andExpect(content().contentType(MediaType.TEXT_HTML));  //  데이터 확인
+                .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
+                .andExpect(view().name("articles/search"));  //  뷰 이름 검사
     }
 
+    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleHashtagSearchView_thenReturnsArticleHashtagSearchView() throws Exception {
@@ -63,6 +72,7 @@ class ArticleControllerTest {
         //  When & Then
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk()) //  정상 호출
-                .andExpect(content().contentType(MediaType.TEXT_HTML));  //  데이터 확인
+                .andExpect(content().contentType(MediaType.TEXT_HTML))  //  데이터 확인
+                .andExpect(view().name("articles/search-hashtag"));   //  뷰 이름 검사
     }
 }
