@@ -38,7 +38,7 @@ public class Article extends AuditingFields{    //  상속을 통해 AuditingFie
 
     @Setter private String hashtag; //  해시태그
 
-//    댓글의 경우 게시글은 하나지만 댓글은 여러개 일수 있으므로 @ManyToOne 을 추가했다.
+//    댓글의 경우 게시글은 하나지만 댓글은 여러개 일수 있으므로 @OneToMany 을 추가했다.
 //    양방향 바인딩
     @ToString.Exclude   //  퍼포먼스나 메모리 저하를 방지하기 위해 선언
     @OrderBy("id")  //  id 기준 정렬

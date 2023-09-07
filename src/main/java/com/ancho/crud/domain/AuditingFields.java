@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 //AuditingEntityListener - Entity 영속성 및 업데이트에 대한 Auditing 정보를 캡처하는 JPA Entity Listener
 //이 문구는 당연히 ArticleComment 엔티티에도 작성되어있어야 한다. 그래야 Auditing을 쓸수 있기 때문이다.
 @MappedSuperclass
-public class AuditingFields {
+public abstract class AuditingFields {
     //  해당 필드들이 실제 웹 화면에서 보여줄 때,
     //  웹 화면에서 파라미터를 받아 세팅할 땐 파싱이 잘 되어있어야 함
     //  파싱에 관련된 룰인 @DateTimeFormat 추가해주는 것이 좋음
