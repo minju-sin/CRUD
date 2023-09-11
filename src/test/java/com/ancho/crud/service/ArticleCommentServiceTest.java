@@ -137,10 +137,10 @@ class ArticleCommentServiceTest {
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
-                "Ancho",
+                "jyc",
                 "password",
-                "ancho@email.com",
-                "Ancho",
+                "jyc@email.com",
+                "Jyc",
                 null
         );
     }
@@ -152,9 +152,9 @@ class ArticleCommentServiceTest {
                 createUserAccountDto(),
                 content,
                 LocalDateTime.now(),
-                "Ancho",
+                "jyc",
                 LocalDateTime.now(),
-                "Ancho"
+                "jyc"
         );
 
     }
