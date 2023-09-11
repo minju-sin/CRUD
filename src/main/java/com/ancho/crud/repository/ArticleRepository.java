@@ -4,21 +4,24 @@ import com.ancho.crud.domain.Article;
 import com.ancho.crud.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import java.util.List;
 
 //API 검색 기능 구현 
 @RepositoryRestResource
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
     QuerydslPredicateExecutor<Article>, // 모든 entity 안에 있는 모든 필드에 있는 기본 검색 기능 구현해 줌
-
     //  추가로 검색 기능 구현
     QuerydslBinderCustomizer<QArticle>  //  BinderCustomizer 클래스에서는 반드시 queue 클래스를 넣어줘야 함
 {
+    Page<Article> findByTitle(String title, Pageable pageable);
     @Override   //  customize 오버라이드 필요
     default void customize(QuerydslBindings bindings, QArticle root){
         bindings.excludeUnlistedProperties(true);    // 선택한 내용만 볼 수 있도록 true로 설정해 줌 (기본값은 false)
@@ -31,7 +34,7 @@ public interface ArticleRepository extends
         bindings.bind(root.hashtag).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);  //    날짜 검사 - 더 편리한 날짜 검사는 추후에 할 예정
         bindings.bind(root.createBy).first(StringExpression::containsIgnoreCase);
-        
+
 
     }
 }

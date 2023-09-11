@@ -18,7 +18,7 @@ import java.util.Set;
 /* 게시글 클래스 */
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -32,8 +32,8 @@ public class Article extends AuditingFields{    //  상속을 통해 AuditingFie
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;    //  자동으로 부여
 
-
     @Setter @Column(nullable = false) private String title;   //  제목
+    @Setter @ManyToOne(optional = false) private UserAccount userAccount;   //  유저 정보(ID)
     @Setter @Column(nullable = false, length = 10000) private String content; //  본문
 
     @Setter private String hashtag; //  해시태그
@@ -41,7 +41,7 @@ public class Article extends AuditingFields{    //  상속을 통해 AuditingFie
 //    댓글의 경우 게시글은 하나지만 댓글은 여러개 일수 있으므로 @OneToMany 을 추가했다.
 //    양방향 바인딩
     @ToString.Exclude   //  퍼포먼스나 메모리 저하를 방지하기 위해 선언
-    @OrderBy("id")  //  id 기준 정렬
+    @OrderBy("createdAt DESC")  //  id 기준 정렬
     @OneToMany(mappedBy ="article", cascade = CascadeType.ALL )
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
@@ -61,14 +61,15 @@ public class Article extends AuditingFields{    //  상속을 통해 AuditingFie
     */
     protected Article() {}
 
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
     }
 
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title, content, hashtag);
     }
 
 
