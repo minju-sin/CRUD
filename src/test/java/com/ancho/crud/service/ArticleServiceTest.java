@@ -54,7 +54,7 @@ class ArticleServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "title";
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+        given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
         //  When
 //        List로 반환하면 그냥 검색만 가능하지만 Page로 반환하면 페이지네이션이 가능해짐
 //        List<ArticleDto> articles =  sut.searchArticles(SearchType.TITLE, "search keyword");   //  제목, 본문, ID, 닉네임, 해시태그
@@ -62,7 +62,7 @@ class ArticleServiceTest {
 
         //  Then
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findByTitle(searchKeyword, pageable);
+        then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
 
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")   //  각 게시글 페이지로 이동

@@ -11,7 +11,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import java.util.List;
 
 //API 검색 기능 구현 
 @RepositoryRestResource
@@ -21,7 +20,12 @@ public interface ArticleRepository extends
     //  추가로 검색 기능 구현
     QuerydslBinderCustomizer<QArticle>  //  BinderCustomizer 클래스에서는 반드시 queue 클래스를 넣어줘야 함
 {
-    Page<Article> findByTitle(String title, Pageable pageable);
+    //  Containing은 부분 검색도 가능하게 만들어 준다.
+    Page<Article> findByTitleContaining(String title, Pageable pageable);
+    Page<Article> findByContentContaining(String content, Pageable pageable);
+    Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
+    Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
+    Page<Article> findByHashtag(String hashtag, Pageable pageable);
     @Override   //  customize 오버라이드 필요
     default void customize(QuerydslBindings bindings, QArticle root){
         bindings.excludeUnlistedProperties(true);    // 선택한 내용만 볼 수 있도록 true로 설정해 줌 (기본값은 false)
