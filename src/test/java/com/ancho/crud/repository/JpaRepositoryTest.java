@@ -3,7 +3,6 @@ package com.ancho.crud.repository;
 import static org.assertj.core.api.Assertions.*;
 import com.ancho.crud.config.JpaConfig;
 import com.ancho.crud.domain.Article;
-import com.ancho.crud.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +21,12 @@ class JpaRepositoryTest {
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
 
-    private final UserAccountRepository userAccountRepository;
     JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
-            @Autowired ArticleCommentRepository articleCommentRepository,
-            @Autowired UserAccountRepository userAccountRepository
+            @Autowired ArticleCommentRepository articleCommentRepository
     ) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
-        this.userAccountRepository= userAccountRepository;
     }
 
 //    articleRepostory를 findAll 을 사용하여 모든 내용을 List로 가져오는 테스트를 진행한다.
@@ -58,13 +54,9 @@ class JpaRepositoryTest {
     void givenTestData_whenInserting_thenWorksFine(){
         //  Given
         long previousCount = articleRepository.count();
-        UserAccount userAccount = userAccountRepository.save(UserAccount.of(
-                "Ancho","pw",null,null,null
-        ));
 
-        Article article = Article.of(userAccount,"new Article", "new content", "#spring");
         //  When
-        articleRepository.save(article);
+        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
 
 
         //  Then
