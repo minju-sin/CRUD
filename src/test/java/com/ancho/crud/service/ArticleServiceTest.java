@@ -159,10 +159,10 @@ class ArticleServiceTest {
 
     private UserAccount createUserAccount(){
         return UserAccount.of(
-                "jyc",
+                "ancho",
                 "password",
-                "jyc@email.com",
-                "Jyc",
+                "ancho@email.com",
+                "Ancho",
                 null
         );
     }
@@ -186,24 +186,24 @@ class ArticleServiceTest {
                 content,
                 hashtag,
                 LocalDateTime.now(),
-                "Jyc",
+                "Ancho",
                 LocalDateTime.now(),
-                "Jyc"
+                "Ancho"
         );
     }
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 1L,
-                "jyc",
+                "ancho",
                 "password",
-                "jyc@mail.com",
-                "Jyc",
+                "ancho@mail.com",
+                "Ancho",
                 "This is memo",
                 LocalDateTime.now(),
-                "jyc",
+                "ancho",
                 LocalDateTime.now(),
-                "jyc"
+                "ancho"
         );
     }
 }
