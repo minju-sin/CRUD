@@ -36,7 +36,7 @@ public class ArticleController {
     //    게시판 페이지
     @GetMapping
     public String articles(
-            @RequestParam(required = false)SearchType searchType,
+            @RequestParam(required = false) SearchType searchType,
             @RequestParam(required = false) String searchValue,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             ModelMap map
@@ -47,6 +47,7 @@ public class ArticleController {
 
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
+        map.addAttribute("searchTypes",SearchType.values());
         return "articles/index";
     }
 

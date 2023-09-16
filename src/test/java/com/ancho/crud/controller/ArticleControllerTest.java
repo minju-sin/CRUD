@@ -59,6 +59,28 @@ class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
+    @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
+    @Test
+    public void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView() throws Exception {
+        // Given
+        SearchType searchType = SearchType.TITLE;   //  검색 타입 추가
+        String searchValue = "title";   //  검색어 추가
+        // 이제부터 검색 타입과 검색어를 받기 때문에 null 값을 넣는 구간에 해당하는 변수를 추가한다.
+        given(articleService.searchArticles(eq(searchType), eq(searchValue),any(Pageable.class))).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(),anyInt())).willReturn(List.of(0,1,2,3,4));
+        // When & Then
+        mvc.perform(get("/articles")
+                        .queryParam("searchType",searchType.name())
+                        .queryParam("searchValue",searchValue)
+                )
+                .andExpect(status().isOk()) // 정상 호출
+                .andExpect(result -> content().contentType(MediaType.TEXT_HTML)) // 데이터 확인
+                .andExpect(view().name("articles/index")) // 뷰의 존재여부 검사
+                .andExpect(model().attributeExists("articles")) // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
+                .andExpect(model().attributeExists("searchTypes"));
+        then(articleService).should().searchArticles(eq(searchType), eq(searchValue),any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(),anyInt());
+    }
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 페이징, 정렬기능")
     @Test
