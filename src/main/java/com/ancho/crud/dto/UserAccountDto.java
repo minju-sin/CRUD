@@ -5,7 +5,6 @@ import com.ancho.crud.domain.UserAccount;
 import java.time.LocalDateTime;
 
 public record UserAccountDto(
-        Long id,
         String userId,
         String userPassword,
         String email,
@@ -16,13 +15,12 @@ public record UserAccountDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
-    public static UserAccountDto of(Long id, String userId, String userPassword, String email, String nickname, String memo, LocalDateTime createdAt, String createBy, LocalDateTime modifiedAt, String modifiedBy)
+    public static UserAccountDto of(String userId, String userPassword, String email, String nickname, String memo, LocalDateTime createdAt, String createBy, LocalDateTime modifiedAt, String modifiedBy)
     {
-        return new UserAccountDto(id, userId, userPassword, email, nickname, memo, createdAt, createBy, modifiedAt, modifiedBy);
+        return new UserAccountDto(userId, userPassword, email, nickname, memo, createdAt, createBy, modifiedAt, modifiedBy);
     }
     public static UserAccountDto from(UserAccount entity){
         return new UserAccountDto(
-                entity.getId(),
                 entity.getUserId(),
                 entity.getUserPassword(),
                 entity.getEmail(),
