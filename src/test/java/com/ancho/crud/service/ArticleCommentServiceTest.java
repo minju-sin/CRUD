@@ -57,7 +57,7 @@ class ArticleCommentServiceTest {
         //  Given
         ArticleCommentDto dto = createArticleCommentDto("댓글");
 
-        given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
+        given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
 
         //  When
         sut.saveArticleComment(dto);
@@ -91,7 +91,7 @@ class ArticleCommentServiceTest {
         ArticleCommentDto dto = createArticleCommentDto(updatedContent);
         given(articleCommentRepository.getReferenceById(dto.id())).willReturn(articleComment);
         // When
-        sut.saveArticleComment(dto);
+        sut.updateArticleComment(dto);
         // Then
         assertThat(articleComment.getContent())
                 .isNotEqualTo(oldContent)
