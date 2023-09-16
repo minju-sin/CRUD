@@ -3,9 +3,7 @@ package com.ancho.crud.service;
 import com.ancho.crud.domain.Article;
 import com.ancho.crud.domain.ArticleComment;
 import com.ancho.crud.domain.UserAccount;
-import com.ancho.crud.domain.type.SearchType;
 import com.ancho.crud.dto.ArticleCommentDto;
-import com.ancho.crud.dto.ArticleDto;
 import com.ancho.crud.dto.UserAccountDto;
 import com.ancho.crud.repository.ArticleCommentRepository;
 import com.ancho.crud.repository.ArticleRepository;
@@ -16,11 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

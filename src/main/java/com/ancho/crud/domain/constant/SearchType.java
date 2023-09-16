@@ -1,4 +1,4 @@
-package com.ancho.crud.domain.type;
+package com.ancho.crud.domain.constant;
 
 import lombok.Getter;
 
