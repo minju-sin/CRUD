@@ -52,10 +52,12 @@ public class ArticleController {
 
     //  게시글 페이지
     @GetMapping("/{articleId}") //  게시글 아이디를 받음
-    public String article(@PathVariable Long articleId, ModelMap map){
+    public String article(@PathVariable Long articleId, ModelMap map) {
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
+
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentsResponse());
+        map.addAttribute("totalCount",articleService.getArticleCount());
 
         return "articles/detail";
     }

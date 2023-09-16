@@ -1,6 +1,7 @@
 package com.ancho.crud.controller;
 
 import com.ancho.crud.config.SecurityConfig;
+import com.ancho.crud.domain.type.SearchType;
 import com.ancho.crud.dto.ArticleWithCommentsDto;
 import com.ancho.crud.dto.UserAccountDto;
 import com.ancho.crud.service.ArticleService;
@@ -89,20 +90,27 @@ class ArticleControllerTest {
 
 
     //    @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
-    @DisplayName("[view][GET] 게시글 상세 페이지 - 정상 호출")
+    @DisplayName("[view][GET] 게시글 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
         //  Given
         Long articleId = 1L;
+        Long totalCount = 1L;   //  게시글 총 개수
+
         given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDto());
+        given(articleService.getArticleCount()).willReturn(totalCount);
+
         //  When & Then
-        mvc.perform(get("/articles/1"))
+        mvc.perform(get("/articles/" + articleId))
                 .andExpect(status().isOk()) //  정상 호출
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))  //  데이터 확인
                 .andExpect(view().name("articles/detail"))   //  뷰 이름 검사
                 .andExpect(model().attributeExists("article"))    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
-                .andExpect(model().attributeExists("articleComments"));    // 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
+                .andExpect(model().attributeExists("articleComments"))// 뷰에 모델 어트리뷰트로 넣어준 데이터존재 여부 검사
+                .andExpect(model().attribute("totalCount", totalCount)); // getArticleCount()호출 여부
+
         then(articleService).should().getArticle(articleId);
+        then(articleService).should().getArticleCount();
     }
 
     @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
