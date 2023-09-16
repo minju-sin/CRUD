@@ -74,4 +74,8 @@ public class ArticleService {
         //  삭제
         articleRepository.deleteById(articleId);
     }
+
+    public long getArticleCount() {
+        return articleRepository.count();
+    }
 }
