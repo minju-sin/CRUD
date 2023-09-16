@@ -53,29 +53,31 @@ class ArticleCommentServiceTest {
 
     @DisplayName("댓글 정보를 입력하면, 댓글을 저장한다.")
     @Test
-    void givenArticleCommentInfo_whenSavingArticleComment_thenSavesArticleComment(){
-        //  Given
-        ArticleCommentDto dto = createArticleCommentDto("댓글");
-
-        given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
-
-        //  When
-        sut.saveArticleComment(dto);
-
-        //  Then
-        then(articleRepository).should().getReferenceById(dto.articleId());
-        then(articleCommentRepository).should().save(any(ArticleComment.class));
-
-    }
-
-    @DisplayName("댓글 저장을 시도했는데 맞는 게시글이 없으면, 경고 로그를 찍고 아무것도 안한다.")
-    @Test
-    void givenNonexistentArticle_whenSavingArticleComment_thenLogsSituationAndDoesNothing(){
+    void givenArticleCommentInfo_whenSavingArticleComment_thenSavesArticleComment() {
         // Given
         ArticleCommentDto dto = createArticleCommentDto("댓글");
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
+        given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
+
         // When
         sut.saveArticleComment(dto);
+
+        // Then
+        then(articleRepository).should().getReferenceById(dto.articleId());
+        then(articleCommentRepository).should().save(any(ArticleComment.class));
+    }
+
+
+    @DisplayName("댓글 저장을 시도했는데 맞는 게시글이 없으면, 경고 로그를 찍고 아무것도 안 한다.")
+    @Test
+    void givenNonexistentArticle_whenSavingArticleComment_thenLogsSituationAndDoesNothing() {
+        // Given
+        ArticleCommentDto dto = createArticleCommentDto("댓글");
+        given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
+
+        // When
+        sut.saveArticleComment(dto);
+
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
         then(articleCommentRepository).shouldHaveNoInteractions();

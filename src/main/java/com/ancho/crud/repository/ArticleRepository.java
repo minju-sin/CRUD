@@ -2,6 +2,7 @@ package com.ancho.crud.repository;
 
 import com.ancho.crud.domain.Article;
 import com.ancho.crud.domain.QArticle;
+import com.ancho.crud.repository.querydsl.ArticleRepositoryCustom;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
+        ArticleRepositoryCustom,
         QuerydslPredicateExecutor<Article>, // 모든 entity 안에 있는 모든 필드에 있는 기본 검색 기능 구현해 줌
         //  추가로 검색 기능 구현
         QuerydslBinderCustomizer<QArticle>  //  BinderCustomizer 클래스에서는 반드시 queue 클래스를 넣어줘야 함
