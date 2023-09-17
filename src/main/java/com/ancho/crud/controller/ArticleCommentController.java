@@ -21,7 +21,7 @@ public class ArticleCommentController {
         // TODO: 인증 정보를 넣어줘야 한다.
         // 현재는 인증 정보를 구현하지 않았으므로 가짜 데이터를 넣어준다.
         articleCommentService.saveArticleComment(articleCommentRequest.toDto(UserAccountDto.of(
-                "uno", "pw", "uno@mail.com", null, null
+                "ancho", "intel1125@#", "ancho@mail.com", null, null
         )));
 
         //  댓글을 추가하면 댓글을 추가할 게시글에 바로 게시글이 나타나야 한다.
