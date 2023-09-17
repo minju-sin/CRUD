@@ -1,21 +1,26 @@
 package com.ancho.crud.repository;
 
-import static org.assertj.core.api.Assertions.*;
-import com.ancho.crud.config.JpaConfig;
 import com.ancho.crud.domain.Article;
 import com.ancho.crud.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("testdb")
 @DisplayName("JPA 연결 테스트")
-@Import(JpaConfig.class)    //  JpaConfig 는 내가 직접 만든 것으로 import 함
+@Import(JpaRepositoryTest.TestJpaConfig.class)    //  JpaConfig 는 내가 직접 만든 것으로 import 함
 @DataJpaTest
 class JpaRepositoryTest {
     //  생성자 주입 패턴
@@ -107,5 +112,15 @@ class JpaRepositoryTest {
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
 //        댓글 삭제할 땐, 기존의 댓글 개수에서 게시글이 삭제될 때 전체 댓글을 지우는 것도 포함해서 생각함
         assertThat(articleCommentRepository.count()).isEqualTo(previousArticleComment - deletedCommentSize);
+    }
+
+    //  jpa 테스트 해결법
+    @EnableJpaAuditing
+    @TestConfiguration
+    public static class TestJpaConfig{
+        @Bean
+        public AuditorAware<String> auditorAware() {
+            return ()-> Optional.of("ancho");
+        }
     }
 }

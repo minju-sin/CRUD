@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -82,8 +81,8 @@ public class Article extends AuditingFields{    //  상속을 통해 AuditingFie
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Article article)) return false;
-        return id != null && id.equals(article.id);
+        if (!(o instanceof Article that)) return false;
+        return id != null && id.equals(that.getId());
         /*
          * "새로 만들어진 엔티티, 즉 영속화 되지 않은 엔티티는 동등성 검사에서 탈락시킬거야!"라는 뜻이다.
          * 글의 내용과 날짜와 같은 필드의 데이터들이 모두 동일할 지언정 id값이 없거나 동일하지 않다?

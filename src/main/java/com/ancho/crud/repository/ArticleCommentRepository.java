@@ -17,6 +17,7 @@ public interface ArticleCommentRepository extends
         QuerydslPredicateExecutor<ArticleComment>,   //  기본적인 entity 기능에 들어있는 필드의 검색 기능을 구현해 줌
         QuerydslBinderCustomizer<QArticleComment> {
     List<ArticleComment> findByArticle_Id(Long articleId);
+    public void deleteByIdAndUserAccount_UserId(Long articleCommentId, String userId);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root){
