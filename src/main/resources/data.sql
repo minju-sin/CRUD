@@ -1,8 +1,8 @@
 -- 테스트 계정
 -- TODO: 테스트 용도로 사용하지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
 
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,create_by,modified_at, modified_by) values( 'ancho', 'intel1125@#', 'Ancho', 'ancho@mail.com', 'i am Ancho.', now(), 'ancho', now(), 'ancho');
-insert into user_account(user_id, user_password,nickname,email,memo,created_at,create_by,modified_at, modified_by) values( 'ancho2', 'intel11252@#', 'Ancho2', 'ancho2@mail.com', 'i am Ancho2.', now(), 'ancho2', now(), 'ancho2');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,create_by,modified_at, modified_by) values( 'ancho', '{noop}intel1125@#', 'Ancho', 'ancho@mail.com', 'i am Ancho.', now(), 'ancho', now(), 'ancho');
+insert into user_account(user_id, user_password,nickname,email,memo,created_at,create_by,modified_at, modified_by) values( 'ancho2', '{noop}intel11252@#', 'Ancho2', 'ancho2@mail.com', 'i am Ancho2.', now(), 'ancho2', now(), 'ancho2');
 
 
 -- 게시글 123
