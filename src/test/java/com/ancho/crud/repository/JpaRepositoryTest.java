@@ -117,9 +117,9 @@ class JpaRepositoryTest {
     //  jpa 테스트 해결법
     @EnableJpaAuditing
     @TestConfiguration
-    public static class TestJpaConfig{
+    static class TestJpaConfig{
         @Bean
-        public AuditorAware<String> auditorAware() {
+        AuditorAware<String> auditorAware() {
             return ()-> Optional.of("ancho");
         }
     }

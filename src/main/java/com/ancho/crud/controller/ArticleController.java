@@ -89,7 +89,7 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping ("/form")
+    @PostMapping("/form")
     public String postNewArticle(
             @AuthenticationPrincipal BoardPrincipal boardPrincipal, //  현재 이용자의 인증 정보 불러옴 -> 가짜 데이터를 넣어주지 않아도 됨
             ArticleRequest articleRequest) {
@@ -109,7 +109,7 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping ("/{articleId}/form")
+    @PostMapping("/{articleId}/form")
     public String updateArticle(
             @PathVariable Long articleId,
             @AuthenticationPrincipal BoardPrincipal boardPrincipal, //  현재 이용자의 인증 정보 불러옴 -> 가짜 데이터를 넣어주지 않아도 됨

@@ -76,7 +76,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
     @Test
-    public void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView() throws Exception {
+    void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView() throws Exception {
         // Given
         SearchType searchType = SearchType.TITLE;   //  검색 타입 추가
         String searchValue = "title";   //  검색어 추가
@@ -99,7 +99,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 페이징, 정렬기능")
     @Test
-    public void givenPagingAndSortingParams_whenSearchingArticlesPage_thenReturnsArticlesPage() throws Exception {
+    void givenPagingAndSortingParams_whenSearchingArticlesPage_thenReturnsArticlesPage() throws Exception {
         // Given
         String sortName ="title";
         String direction = "desc";
@@ -131,7 +131,7 @@ class ArticleControllerTest {
     //  단, 실제 사용자의 정보를 통해 인증할 수 없음 그러므로 `ArticleController`에서 정보를 넣어줘야 함
     @DisplayName("[view][GET] 게시글 페이지 - 정상 호출, 인증된 사용자")
     @Test
-    public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
+    void givenAuthorizedUser_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
         //  Given
         Long articleId = 1L;
         Long totalCount = 1L;   //  게시글 총 개수
@@ -170,7 +170,7 @@ class ArticleControllerTest {
     @Disabled("구현 중")   //  Disabled로 구현 중인 테스트를 실행하지 않도록 만들 수 있음
     @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
+    void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
         //  Given
 
         //  When & Then
@@ -183,7 +183,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView() throws Exception {
+    void givenNothing_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView() throws Exception {
         // Given
         List<String> hashtags = List.of("#java", "#spring", "#boot");
         given(articleService.searchArticlesViaHashtag(eq(null), any(Pageable.class))).willReturn(Page.empty());
@@ -207,7 +207,7 @@ class ArticleControllerTest {
 
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출, 해시태그 입력")
     @Test
-    public void givenHashtag_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView() throws Exception {
+    void givenHashtag_whenRequestingArticleSearchHashtagView_thenReturnsArticleSearchHashtagView() throws Exception {
         // Given
         String hashtag = "#java";
         List<String> hashtags = List.of("#java", "#spring", "#boot");
@@ -235,7 +235,7 @@ class ArticleControllerTest {
     @WithMockUser
     @DisplayName("[view][GET] 새 게시글 작성 페이지")
     @Test
-    void givenNothing_whenRequesting_thenReturnsNewArticlePage() throws Exception {
+    void givenAuthorizedUser_whenRequesting_thenReturnsNewArticlePage() throws Exception {
         // Given
 
         // When & Then
