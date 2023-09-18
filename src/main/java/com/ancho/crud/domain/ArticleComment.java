@@ -23,7 +23,9 @@ public class ArticleComment extends AuditingFields{
      private Long id;
 
      //     연관 관계를 선언하기 위해 @ManyToOne 사용
-     @Setter private @ManyToOne(optional = false) Article article;  //  게시글 (ID)
+     @Setter
+     @ManyToOne(optional = false)
+     private Article article;  //  게시글 (ID)
 
      @Setter
      @ManyToOne(optional = false)
